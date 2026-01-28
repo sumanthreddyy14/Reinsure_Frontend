@@ -21,7 +21,19 @@ export class RiskCessionList implements OnInit {
 
   constructor(private cessionService: RiskCessionService) {}
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
+  //   this.cessionService.listAll().subscribe(data => (this.dataSource.data = data));
+  // }
+  
+ngOnInit(): void {
+    this.load();
+    // Refresh table when a new cession is allocated
+    this.cessionService.refresh$.subscribe(() => this.load());
+  }
+
+  
+private load(): void {
     this.cessionService.listAll().subscribe(data => (this.dataSource.data = data));
   }
+
 }
