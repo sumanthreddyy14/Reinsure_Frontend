@@ -15,7 +15,6 @@ import { FinanceSummary } from './features/Financial-Report/finance-summary/fina
 import { BalanceTable } from './features/Financial-Report/balance-table/balance-table';
 import { ExportButton } from './features/Financial-Report/export-button/export-button';
 import { FinancialReportList } from './features/Financial-Report/financial-report-list/financial-report-list';
-import { AuditLogView } from './features/risk-cession/audit-log-view/audit-log-view';
 import { FinanceDashboard } from './features/Financial-Report/finance-dashboard/finance-dashboard';
 import { Financelinks } from './features/Financial-Report/financelinks/financelinks';
 import { LoginComponent } from './features/login/login';
@@ -73,14 +72,13 @@ export const routes: Routes = [
   { path: 'admin/dashboard', component: AdminDashboard, canActivate: [AdminGuard] },
   { path: 'treaties', component: TreatyList, canActivate: [AdminGuard] },
   { path: 'treaties/new', component: TreatyForm, canActivate: [AdminGuard] },
-  { path: 'treaties/:id/edit', component: TreatyForm, canActivate: [AdminGuard] },
   { path: 'treaties/:id', component: TreatyDetail, canActivate: [AdminGuard] },
+  { path: 'treaties/:id/edit', component: TreatyForm, canActivate: [AdminGuard] },
   { path: 'treaties/renewals', component: RenewalCalendar, canActivate: [AdminGuard] },
   { path: 'renewals', component: RenewalCalendar, canActivate: [AdminGuard] },
   { path: 'reinsurers', component: ReinsurerList, canActivate: [AdminGuard] },
-  { path: 'reinsurers/:id', component: ReinsurerDetail, canActivate: [AdminGuard] },
+  { path: 'reinsurers/:id', component: ReinsurerDetail },
   { path: 'cessions/new', component: RiskCession, canActivate: [AdminGuard] },
-  { path: 'audit', component: AuditLogView, canActivate: [AdminGuard] },
   { path: 'recoveries/new', component: RecoveryFormComponent, canActivate: [AdminGuard] },
 
   // Finance-only routes

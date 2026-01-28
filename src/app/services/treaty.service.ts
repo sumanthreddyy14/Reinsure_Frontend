@@ -1,111 +1,69 @@
-// import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-// import { Observable } from 'rxjs';
-// import { Treaty } from '../models/treaty.model';
-
-// @Injectable({ providedIn: 'root' })
-// export class TreatyService {
-//   constructor(private http: HttpClient) {}
-
-//   list(): Observable<Treaty[]> {
-//     return this.http.get<Treaty[]>('/api/treaties');
-//   }
-// }
-// treaty.service.ts
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { Treaty } from '../models/treaty.model';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class TreatyService {
-  constructor(private http: HttpClient) {}
-  private dummy: Treaty[] = [
-    {
-      treatyId: 'T001',
-      reinsurerId: 'R001',
-      reinsurerName: 'Hari NTR',
-      treatyType: 'PROPORTIONAL',
-      coverageLimit: 5000000,
-      startDate: '2025-01-01',
-      endDate: '2026-01-31',
-      status: 'ACTIVE',
-      renewalDate: '2025-12-15'
-    },
+  private base = 'http://localhost:8080/api/v1/treaties';
 
-    {
-      treatyId: 'T002',
-      reinsurerId: 'R002',
-      reinsurerName: 'Ramu',
-      treatyType: 'NON-PROPORTIONAL',
-      coverageLimit: 3000000,
-      startDate: '2024-01-01',
-      endDate: '2024-12-31',
-      status: 'EXPIRED',
-      renewalDate: '2026-01-15'
-    },
-    {
-      treatyId: 'T003',
-      reinsurerId: 'R003',
-      reinsurerName: 'John',
-      treatyType: 'PROPORTIONAL',
-      coverageLimit: 7000000,
-      startDate: '2023-01-01',
-      endDate: '2023-12-31',
-      status: 'EXPIRED',
-      renewalDate: '2024-10-15'
-    },
-     {
-      treatyId: 'T003',
-      reinsurerId: 'R003',
-      reinsurerName: 'John reddy',
-      treatyType: 'PROPORTIONAL',
-      coverageLimit: 5000000,
-      startDate: '2023-01-01',
-      endDate: '2023-12-31',
-      status: 'ARCHIVED',
-      renewalDate: '2024-10-15'
-    },
-    {
-      treatyId: 'T004',
-      reinsurerId: 'R004',
-      reinsurerName: 'Sumanth',
-      treatyType: 'PROPORTIONAL',
-      coverageLimit: 80000000,
-      startDate: '2025-01-01',
-      endDate: '2026-01-31',
-      status: 'ACTIVE',
-      renewalDate: '2026-01-15'
-    }
-  ];
+  // ✅ Cache of last-loaded treaties for sync stats
+  private cache: Treaty[] = [];
+
+  constructor(private http: HttpClient) {}
 
   list(): Observable<Treaty[]> {
-    return of(this.dummy);
+    return this.http.get<Treaty[]>(this.base).pipe(
+      tap((data) => (this.cache = data)) // ✅ update cache whenever we load
+    );
   }
 
-  // list(): Observable<Treaty[]> {
-  //   return this.http.get<Treaty[]>('http://localhost:8080/api/v1/treaties');
-  // }
+  
 
 
-  getById(id: string): Observable<Treaty | undefined> {
-    return of(this.dummy.find(t => t.treatyId === id));
-  }
-
-  countActiveTreaties(): number { 
-    return this.dummy.filter(t => t.status === 'ACTIVE').length; 
-  } 
-  listAll(): Treaty[] { 
-    return this.dummy; 
-  }
-  save(treaty: Treaty): Observable<Treaty> { 
-    const index = this.dummy.findIndex(t => t.treatyId === treaty.treatyId); 
-    if (index > -1) { 
-      // update existing 
-      this.dummy[index] = treaty; 
-    } else {
-      //  to add
-       this.dummy.push(treaty); 
-      } return of(treaty); 
-    }
+getById(id: string): Observable<Treaty> {
+  const url = `${this.base}/${encodeURIComponent(id)}`;
+  console.log('GET', url);
+  return this.http.get<Treaty>(url);
 }
+
+  save(treaty: Treaty): Observable<Treaty> {
+    const req$ = treaty.treatyId
+      ? this.http.put<Treaty>(`${this.base}/${treaty.treatyId}`, treaty)
+      : this.http.post<Treaty>(this.base, treaty);
+
+    // ✅ Update cache optimistically for dashboard stats
+    return req$.pipe(
+      tap((saved) => {
+        // Replace existing or push new
+        const idx = this.cache.findIndex((t) => t.treatyId === saved.treatyId);
+        if (idx > -1) {
+          this.cache[idx] = saved;
+        } else {
+          this.cache.push(saved);
+        }
+      })
+    );
+  }
+
+  // ✅ Synchronous count, using cache (so dashboard code doesn't need changes)
+  countActiveTreaties(): number {
+    return this.cache.filter((t: Treaty) => t.status === 'ACTIVE').length;
+  }
+
+
+upcomingRenewals(days = 90, includeStatuses: string[] = ['ACTIVE']): Observable<Treaty[]> {
+  let params = new HttpParams().set('days', days.toString());
+  if (includeStatuses && includeStatuses.length) {
+    params = params.set('includeStatuses', includeStatuses.join(',')); // <-- CSV expected by backend
+  }
+  return this.http.get<Treaty[]>(`${this.base}/renewals`, { params });
+}
+
+
+
+}
+
+
+
+

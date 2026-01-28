@@ -77,7 +77,8 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>Actions</th>
           <td mat-cell *matCellDef="let row">
-            <a mat-button color="primary" [routerLink]="['/treaties', row.treatyId]">View</a>
+            <!-- <a mat-button color="primary" [routerLink]="['/treaties', row.treatyId]">View</a> -->
+             <button mat-button color="primary" (click)="go(row.treatyId)">View</button>
             <a mat-button color="accent" [routerLink]="['/treaties', row.treatyId, 'edit']">Edit</a>
           </td>
         </ng-container>

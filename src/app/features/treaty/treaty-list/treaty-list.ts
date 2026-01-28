@@ -6,7 +6,7 @@ import { Treaty } from '../../../models/treaty.model';
 import { TreatyService } from '../../../services/treaty.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -51,7 +51,7 @@ export class TreatyList implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private treatyService: TreatyService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -81,6 +81,16 @@ fetch(): void {
     this.loading = false;
   });
 }
+
+
+go(id: string | number) {
+  if (id === null || id === undefined) return;
+  const slug = encodeURIComponent(String(id));
+  this.router.navigate(['/treaties', slug]);
+}
+
+
+
 
   applyFilter(event: Event): void {
     const value = (event.target as HTMLInputElement).value;

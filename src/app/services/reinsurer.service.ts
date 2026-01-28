@@ -1,20 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Reinsurer } from '../models/reinsurer.model';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Reinsurer } from "../models/reinsurer.model";
 
 @Injectable({ providedIn: 'root' })
 export class ReinsurerService {
-  private dummy: Reinsurer[] = [
-    { reinsurerId: 'R001', name: 'Swiss Re', contactInfo: 'swissre@example.com' },
-    { reinsurerId: 'R002', name: 'Munich Re', contactInfo: 'munichre@example.com' },
-    { reinsurerId: 'R003', name: 'Hannover Re', contactInfo: 'hannoverre@example.com' }
-  ];
+  private base = 'http://localhost:8080/api/v1/reinsurers';
+  constructor(private http: HttpClient) {}
+  list(): Observable<Reinsurer[]> { return this.http.get<Reinsurer[]>(this.base); }
+  
+getById(id: string) {
+  const url = `${this.base}/${encodeURIComponent(id)}`; // ✅ safe
+  console.log('[ReinsurerService] GET', url);
+  return this.http.get<Reinsurer>(url);
+}
 
-  list(): Observable<Reinsurer[]> {
-    return of(this.dummy);
-  }
 
-  getById(id: string): Observable<Reinsurer | undefined> {
-    return of(this.dummy.find(r => r.reinsurerId === id));
-  }
 }
