@@ -18,7 +18,7 @@
         <select formControlName="reinsurerId" (change)="onReinsurerChange()">
           <option value="">Select reinsurer</option>
           <option *ngFor="let r of reinsurers" [value]="r.reinsurerId">
-            {{ r.name }} ({{ r.reinsurerId }})
+            ({{ r.reinsurerId }})
           </option>
         </select>
         <div class="error" *ngIf="form.get('reinsurerId')?.touched && form.get('reinsurerId')?.invalid">
@@ -27,7 +27,7 @@
       </div>
 
     <div class="form-group">
-      <label>Name</label>
+      <label>ReinsurerName</label>
       <input type="text" formControlName="reinsurerName" />
       <div class="error" *ngIf="form.get('reinsurerName')?.touched && form.get('reinsurerName')?.invalid">
         <small *ngIf="form.get('reinsurerName')?.errors?.['required']">
