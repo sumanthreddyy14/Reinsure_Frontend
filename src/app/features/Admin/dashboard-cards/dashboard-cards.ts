@@ -1,31 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { TreatyService } from '../../../services/treaty.service';
-import { RecoveryService } from '../../../services/recovery.service';
 
 @Component({
   selector: 'app-dashboard-cards',
   standalone: true,
   imports: [CommonModule, MatCardModule],
   templateUrl: './dashboard-cards.html',
-  styleUrl: './dashboard-cards.css',
+  styleUrls: ['./dashboard-cards.css'], // ✅ plural
 })
 export class DashboardCards {
-// @Input() title!: string;
-// @Input() value!: number;
-constructor( private treatyService: TreatyService, private recoveryService: RecoveryService ) {}
+  @Input() activeTreaties!: number;
+  @Input() pendingRecoveries!: number;
 
- loading = true;
-  summary: { activeTreaties: number; pendingRecoveries: number } | null = null;
+  get summary() {
+    return {
+      activeTreaties: this.activeTreaties,
+      pendingRecoveries: this.pendingRecoveries
+    };
+  }
 
-  ngOnInit(): void { 
-     const active = this.treatyService.countActiveTreaties();
-      const pending = this.recoveryService.countPendingRecoveries(); 
-      this.summary = { 
-        activeTreaties: active, 
-        pendingRecoveries: pending 
-      }; 
-      this.loading = false; }
+  get loading() {
+    // Show "Loading…" until inputs are defined
+    return this.activeTreaties === undefined || this.pendingRecoveries === undefined;
+  }
 }
-
