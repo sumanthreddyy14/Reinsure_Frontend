@@ -1,0 +1,40 @@
+html, body {
+  min-height: 100%;
+  background: linear-gradient(180deg, #0b1020 0%, #0b1020 35%, #0f172a 100%),
+    url('/assets/bg/dark-abstract.jpg');
+  background-size: cover;
+  background-attachment: fixed; 
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #e5e7eb; 
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(37,99,235,0.22) 0%, rgba(37,99,235,0.12) 20%, rgba(13,19,42,0.85) 60%, #0b1020 100%);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+app-dashboard-cards ::ng-deep mat-card,
+app-expiry-alert ::ng-deep .alert-card,
+app-quick-links {
+  background: #ffffff;
+  backdrop-filter: saturate(1.1);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(67, 55, 55, 0.35);
+}
+
+.cards,
+app-expiry-alert {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.app-toolbar {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: #fff;
+}

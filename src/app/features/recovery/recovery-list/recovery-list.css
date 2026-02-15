@@ -1,0 +1,116 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(180deg,
+    rgba(37,99,235,0.22) 0%,
+    rgba(37,99,235,0.12) 20%,
+    rgba(13,19,42,0.85) 60%,
+    #0b1020 100%
+  );
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #e5e7eb; 
+}
+
+mat-card {
+  margin: 24px auto;
+  max-width: 1000px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff, #f7f9fc);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+mat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+}
+
+/* Header container on dark background — keep it light inside card */
+.header-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #f5f7fa;         /* keep as-is for contrast */
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Link styled as a button */
+.header-container a[mat-button] {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1976d2;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: #e3f2fd;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+}
+.header-container a[mat-button]:hover {
+  background-color: #1976d2;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+.header-container a[mat-button]:active,
+.header-container a[mat-button]:focus {
+  background-color: #1565c0;
+  color: #fff;
+  outline: none;
+}
+
+/* Title */
+mat-card-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1976d2;
+  text-align: center;
+  padding-top: 20px;
+}
+
+/* Right-aligned button retains contrast */
+.header-container button {
+  margin-left: auto;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 6px 16px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.header-container button:hover {
+  background-color: #1565c0;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Table styling inside card (unchanged) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th.mat-header-cell {
+  background-color: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px;
+}
+td.mat-cell {
+  padding: 12px;
+  transition: background-color 0.2s ease;
+}
+tr.mat-row:hover td.mat-cell {
+  background-color: #f1f5fb;
+}
+a[mat-button] {
+  font-weight: 500;
+  text-transform: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+a[mat-button]:hover {
+  color: #0d47a1;
+  transform: scale(1.05);
+}

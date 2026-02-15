@@ -1,0 +1,169 @@
+
+.page-bg {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(37, 99, 235, 0.22) 0%,
+    rgba(37, 99, 235, 0.12) 20%,
+    rgba(13, 19, 42, 0.85) 60%,
+    #0b1020 100%
+  );
+}
+
+:root {
+  --card-bg: #ffffff;
+  --card-fg: #0f172a;               /* slate-900 */
+  --title-blue: #2563eb;            /* blue-600 */
+  --muted: #64748b;                 /* slate-500 */
+  --border: rgba(0, 0, 0, 0.10);
+  --header-bg: #f8fafc;             /* light gray-blue */
+  --chip-bg: rgba(56, 189, 248, 0.10);
+  --chip-border: rgba(56, 189, 248, 0.35);
+  --chip-hover: rgba(56, 189, 248, 0.18);
+  --row-hover: rgba(99, 102, 241, 0.06);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+.mat-mdc-card {
+  background: var(--card-bg);
+  color: var(--card-fg);
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  will-change: transform, box-shadow;
+  margin: 0 auto;
+}
+
+.mat-mdc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+mat-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1976d2;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.kpi-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Header cells (the <th scope="row"> in your rows) */
+.kpi-table th[scope="row"] {
+  text-align: left;
+  padding: 0.875rem 1rem;
+  color: #334155;                 /* slate-700 */
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* Data cells */
+.kpi-table td {
+  padding: 0.875rem 1rem;
+  text-align: center;
+  color: var(--card-fg);
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Row hover (subtle) */
+.kpi-table tr:hover td {
+  background: var(--row-hover);
+}
+
+/* Remove bottom border on last row for neatness */
+.kpi-table tr:last-child th,
+.kpi-table tr:last-child td {
+  border-bottom: 0;
+}
+
+/* ================================
+   Numeric chips (.num): interactive
+   ================================ */
+.kpi-table .num {
+  display: inline-block;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 700;
+  color: var(--card-fg);
+  font-variant-numeric: tabular-nums;
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  min-width: 80px;               /* keeps consistent width for numbers */
+}
+
+.kpi-table .num:hover {
+  background: var(--chip-hover);
+  box-shadow: 0 6px 14px rgba(56, 189, 248, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Optional: gentle pulse for emphasis (add class="num pulse") */
+@keyframes num-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.25); }
+  100% { box-shadow: 0 0 0 14px rgba(56, 189, 248, 0); }
+}
+.kpi-table .num.pulse {
+  animation: num-pulse 1.8s ease-out infinite;
+}
+
+/* ================================
+   Footer small note
+   ================================ */
+mat-card-content small,
+.mat-mdc-card-content small {
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+/* ================================
+   Responsive tweaks
+   ================================ */
+@media (max-width: 1024px) {
+  .mat-mdc-card { padding: 1rem; }
+}
+
+@media (max-width: 768px) {
+  /* Turn rows into blocks on mobile for readability */
+  .kpi-table th[scope="row"],
+  .kpi-table td {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 0.875rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .kpi-table tr {
+    display: block;
+    margin-bottom: 0.75rem;
+    background: #fff;
+    border-bottom: 0; /* each block has its own borders */
+  }
+
+  .kpi-table .num {
+    margin-top: 0.25rem;
+  }
+}

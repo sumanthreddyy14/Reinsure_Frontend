@@ -1,0 +1,260 @@
+/* Card styling */
+mat-card {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 1200px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #ffffff, #f9f9f9);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+mat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.page-bg {
+  min-height: 100vh;
+  /* full viewport height */
+  width: 100%;
+  background: linear-gradient(180deg,
+      rgba(37, 99, 235, 0.22) 0%,
+      rgba(37, 99, 235, 0.12) 20%,
+      rgba(13, 19, 42, 0.85) 60%,
+      #0b1020 100%);
+}
+
+mat-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #1976d2;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: nowrap;
+  /* prevent wrapping */
+  gap: 16px;
+  /* spacing between items */
+  align-items: center;
+  /* vertical alignment */
+  justify-content: flex-start;
+}
+
+.filters mat-form-field {
+  flex: 0 0 180px;
+  /* fixed width for dropdowns/inputs */
+}
+
+.filters button,
+.filters a[mat-button] {
+  flex: 0 0 auto;
+  border: 1px solid #f57c00;
+  /* buttons stay compact */
+}
+
+.filters button:hover,
+.filters a[mat-button]:hover {
+  transform: scale(1.05);
+}
+
+.full {
+  width: 100%;
+  margin: 0px 0;
+}
+
+/* Style the mat-form-field itself */
+.full.mat-form-field {
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 4px 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+.full.mat-form-field:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Input styling */
+.full input {
+  padding: 12px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  background: transparent;
+  outline: none;
+  transition: color 0.3s ease;
+}
+
+/* Placeholder styling */
+.full input::placeholder {
+  color: #9ca3af;
+  /* soft gray */
+  font-style: italic;
+}
+
+/* Focus effect */
+.full input:focus {
+  color: #1e3a8a;
+  /* deep blue text */
+  box-shadow: none;
+}
+
+/* Add a glowing border when focused */
+.full.mat-form-field.mat-focused {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* Table styling */
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--mat-sys-outline);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell {
+  font-weight: 600;
+  background-color: #f3f4f6;
+  color: #374151;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+td.mat-cell {
+  padding: 12px;
+  transition: background-color 0.3s ease;
+}
+
+tr.mat-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+tr.mat-row:hover {
+  background-color: #e8f0fe;
+  cursor: pointer;
+}
+
+/* Base chip styling */
+mat-chip {
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+mat-chip:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Specific statuses */
+mat-chip[color="primary"] {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  color: #fff;
+}
+
+mat-chip[color="warn"] {
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+  color: #fff;
+}
+
+mat-chip[color="accent"] {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  color: #fff;
+}
+
+
+/* Actions buttons */
+td.mat-cell a {
+  margin-right: 8px;
+  font-weight: 500;
+  border-radius: 6px;
+  text-transform: capitalize;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: 1px solid #f57c00;
+}
+
+td.mat-cell a:hover {
+  transform: translateY(-2px);
+  border: 1px solid #f57c00;
+}
+
+/* Paginator spacing */
+mat-paginator {
+  margin-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 8px;
+}
+
+/* Loading spinner */
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+mat-progress-spinner {
+  width: 50px;
+  height: 50px;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  mat-card {
+    margin: 10px;
+    padding: 15px;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+    /* Allow wrapping */
+    gap: 10px;
+  }
+
+  .filters mat-form-field {
+    flex: 1 1 100%;
+    /* Full width filters on mobile */
+  }
+
+  .filters button,
+  .filters a[mat-button] {
+    flex: 1 1 48%;
+    /* Buttons take half width */
+  }
+
+  /* Ensure table scrolls horizontally */
+  .table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  table {
+    min-width: 800px;
+    /* Force scroll */
+  }
+}

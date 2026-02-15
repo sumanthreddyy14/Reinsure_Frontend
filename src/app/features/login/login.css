@@ -1,0 +1,272 @@
+:host {
+  --primary-gradient: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+  --accent-color: #3b82f6;
+  --error-color: #f43f5e;
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --input-bg: #f8fafc;
+}
+
+.split-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+
+.visual-side {
+  flex: 1.5;
+  background: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80') center/cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--primary-gradient);
+  opacity: 0.92;
+}
+
+.brand-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 40px;
+  animation: fadeIn 1s ease-out;
+}
+
+.logo-box {
+  font-size: 64px;
+  font-weight: 800;
+  background: white;
+  color: #1e3a8a;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  margin: 0 auto 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  transform: rotate(-3deg);
+  transition: transform 0.3s ease;
+}
+
+.logo-box:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.brand-content h1 {
+  font-size: 52px;
+  letter-spacing: 4px;
+  margin: 0;
+  font-weight: 900;
+}
+
+.brand-content h3 {
+  font-weight: 300;
+  font-size: 22px;
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+
+.form-side {
+  flex: 1;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+h2 {
+  font-size: 32px;
+  color: #0f172a;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.form-subtitle {
+  color: #64748b;
+  margin-bottom: 40px;
+  font-size: 16px;
+}
+
+
+.input-group {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--input-bg);
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  font-size: 15px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.error-field input {
+  border-color: var(--error-color);
+  background-color: #fff1f2;
+}
+
+.warning {
+  color: var(--error-color);
+  font-size: 12px;
+  margin-top: 6px;
+  font-weight: 500;
+  display: block;
+  animation: shake 0.4s ease-in-out;
+}
+
+
+.primary-btn {
+  width: 100%;
+  padding: 16px;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(30, 64, 175, 0.2);
+}
+
+.primary-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(30, 64, 175, 0.3);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+
+@media (max-width: 992px) {
+  .visual-side {
+    display: none;
+  }
+
+  .form-side {
+    padding: 30px;
+    background: var(--primary-gradient);
+  }
+
+  .form-container {
+    background: white;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+
+.switch-mode p {
+  margin-top: 25px;
+  color: #64748b;
+  font-size: 14.5px;
+}
+
+.switch-mode a {
+  color: #1e40af;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 2px 4px;
+}
+
+
+.switch-mode a:hover {
+  color: #3b82f6;
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+
+.switch-mode a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #3b82f6;
+  transition: width 0.3s ease;
+}
+
+.switch-mode a:hover::after {
+  width: 100%;
+}
+
+
+.switch-mode a:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}

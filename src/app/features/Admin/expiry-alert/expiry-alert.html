@@ -1,0 +1,10 @@
+<mat-card *ngIf="expiredTreaties.length > 0" class="alert-card">
+  <mat-card-title>Expired Treaties</mat-card-title>
+  <mat-card-content>
+    <ul>
+      <li *ngFor="let treaty of expiredTreaties">
+        {{ treaty.name }} (ended {{ treaty.endDate | date:'yyyy-MM-dd' }})
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>

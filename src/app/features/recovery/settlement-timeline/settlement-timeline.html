@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title>Settlement Timeline</mat-card-title>
+  <mat-card-content>
+    <div class="timeline">
+      <div *ngFor="let item of timeline" class="timeline-item" [ngClass]="item.status.toLowerCase()">
+        <mat-icon>
+          {{
+            item.status === 'COMPLETED'
+              ? 'check_circle'
+              : item.status === 'DISPUTED'
+              ? 'report_problem'
+              : 'hourglass_empty'
+          }}
+        </mat-icon>
+        <div class="details">
+          <span class="label">{{ item.label }}</span>
+          <span class="date">{{ item.date | date:'yyyy-MM-dd' }}</span>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

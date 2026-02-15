@@ -1,0 +1,23 @@
+
+<mat-card>
+  <mat-card-title>Financial Summary</mat-card-title>
+  <mat-card-content>
+    <div class="summary-grid" *ngIf="!loading && summary">
+      <mat-card class="metric">
+        <div class="label">Ceded Premiums</div>
+        <div class="value">{{ summary.cededPremiums | number:'1.2-2' }}</div>
+      </mat-card>
+      <mat-card class="metric">
+        <div class="label">Recoveries</div>
+        <div class="value">{{ summary.recoveries | number:'1.2-2' }}</div>
+      </mat-card>
+      <mat-card class="metric">
+        <div class="label">Outstanding</div>
+        <div class="value">{{ summary.outstandingBalance | number:'1.2-2' }}</div>
+      </mat-card>
+    </div>
+
+    <div class="loading" *ngIf="loading">Loading…</div>
+    <p *ngIf="!loading && !summary" class="empty">No summary available.</p>
+  </mat-card-content>
+</mat-card>

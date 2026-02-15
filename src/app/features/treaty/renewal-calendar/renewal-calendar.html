@@ -1,0 +1,63 @@
+<app-quick-links></app-quick-links>
+<div class="page-bg">
+
+  <mat-card>
+    <mat-card-title>Renewal Calendar</mat-card-title>
+    <mat-card-content>
+
+      <div class="filters" style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+        <label>
+          Days:
+          <input type="number" [(ngModel)]="days" min="1" style="width:90px;" />
+        </label>
+        <label><input type="checkbox" [(ngModel)]="includeActive" /> SHOW</label>
+
+        <button mat-raised-button color="primary" (click)="load()">Clear</button>
+      </div>
+
+      <div *ngIf="loading">No renewalDates in treaty list</div>
+      <div *ngIf="!loading && error" class="error">{{ error }}</div>
+
+      <table mat-table [dataSource]="upcomingRenewals" class="mat-elevation-z2"
+        *ngIf="!loading && upcomingRenewals.length > 0">
+        <ng-container matColumnDef="treatyId">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let row">{{ row.treatyId }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="reinsurerName">
+          <th mat-header-cell *matHeaderCellDef>Reinsurer</th>
+          <td mat-cell *matCellDef="let row">{{ row.reinsurerName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef>End Date</th>
+          <td mat-cell *matCellDef="let row">{{ row.renewalDate || row.endDate }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let row">
+            <mat-chip *ngIf="row.status === 'ACTIVE'" color="primary" selected>{{ row.status }}</mat-chip>
+            <mat-chip *ngIf="row.status === 'EXPIRED'" color="warn" selected>{{ row.status }}</mat-chip>
+            <mat-chip *ngIf="row.status === 'ARCHIVED'" color="accent" selected>{{ row.status }}</mat-chip>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let row">
+            <a mat-button color="primary" [routerLink]="['/treaties', row.treatyId]">View</a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['treatyId','reinsurerName','endDate','status','actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['treatyId','reinsurerName','endDate','status','actions'];"></tr>
+      </table>
+
+      <div *ngIf="!loading && upcomingRenewals.length === 0" class="no-renewals">
+        <p style="color: blue;">No upcoming renewals within the next {{ days }} days.</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,110 @@
+<div class="page-bg">
+<app-quick-links></app-quick-links>
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="form-group">
+      <label>Treaty ID</label>
+      <input type="text" formControlName="treatyId" />
+      <div class="error" *ngIf="form.get('treatyId')?.touched && form.get('treatyId')?.invalid">
+        <small *ngIf="form.get('treatyId')?.errors?.['required']">
+          Treaty ID is required.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label>Reinsurer</label>
+        <select formControlName="reinsurerId" (change)="onReinsurerChange()">
+          <option value="">Select reinsurer</option>
+          <option *ngFor="let r of reinsurers" [value]="r.reinsurerId">
+            ({{ r.reinsurerId }})
+          </option>
+        </select>
+        <div class="error" *ngIf="form.get('reinsurerId')?.touched && form.get('reinsurerId')?.invalid">
+          <small *ngIf="form.get('reinsurerId')?.errors?.['required']">Reinsurer is required.</small>
+        </div>
+      </div>
+
+    <div class="form-group">
+      <label>ReinsurerName</label>
+      <input type="text" formControlName="reinsurerName" />
+      <div class="error" *ngIf="form.get('reinsurerName')?.touched && form.get('reinsurerName')?.invalid">
+        <small *ngIf="form.get('reinsurerName')?.errors?.['required']">
+          Reinsurer Name is required.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Treaty Type</label>
+      <select formControlName="treatyType">
+        <option value="">Select type</option>
+        <option value="PROPORTIONAL">Proportional</option>
+        <option value="NON-PROPORTIONAL">Non-Proportional</option>
+      </select>
+      <div class="error" *ngIf="form.get('treatyType')?.touched && form.get('treatyType')?.invalid">
+        <small *ngIf="form.get('treatyType')?.errors?.['required']">
+          Treaty Type is required.
+        </small>
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label>Coverage Limit</label>
+      <input type="number" formControlName="coverageLimit" />
+      <div class="error" *ngIf="form.get('coverageLimit')?.touched && form.get('coverageLimit')?.invalid">
+        <small *ngIf="form.get('coverageLimit')?.errors?.['required']">
+          Coverage Limit is required.
+        </small>
+        <small *ngIf="form.get('coverageLimit')?.errors?.['min']">
+          Must be greater than 0.
+        </small>
+      </div>
+    </div>
+
+   
+    <div class="form-group">
+      <label>Start Date</label>
+      <input type="date" formControlName="startDate" />
+      <div class="error" *ngIf="form.get('startDate')?.touched && form.get('startDate')?.invalid">
+        <small *ngIf="form.get('startDate')?.errors?.['required']">
+          Start Date is required.
+        </small>
+      </div>
+    </div>
+
+   
+    <div class="form-group">
+      <label>End Date</label>
+      <input type="date" formControlName="endDate" />
+      <div class="error" *ngIf="form.get('endDate')?.touched && form.get('endDate')?.invalid">
+        <small *ngIf="form.get('endDate')?.errors?.['required']">
+          End Date is required.
+        </small>
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label>Status</label>
+      <select formControlName="status">
+        <option value="">Select status</option>
+        <option value="ACTIVE">Active</option>
+        <option value="EXPIRED">Expired</option>
+        <option value="ARCHIVED">Archived</option>
+      </select>
+      <div class="error" *ngIf="form.get('status')?.touched && form.get('status')?.invalid">
+        <small *ngIf="form.get('status')?.errors?.['required']">
+          Status is required.
+        </small>
+      </div>
+    </div>
+<div class="form-actions">
+  <button type="submit" [disabled]="form.invalid">Save Treaty</button>
+  <button type="button" color="primary" [routerLink]="['/treaties']">Cancel</button>
+</div>
+  </form>
+</div>
+</div>

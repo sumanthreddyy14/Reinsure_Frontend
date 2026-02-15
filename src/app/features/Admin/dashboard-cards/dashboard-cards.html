@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title>Admin Summary</mat-card-title>
+  <mat-card-content>
+    <div class="summary-grid" *ngIf="!loading && summary">
+      <mat-card class="metric">
+        <div class="label">Active Treaties</div>
+        <div class="value">{{ summary.activeTreaties }}</div>
+      </mat-card>
+      <mat-card class="metric">
+        <div class="label">Pending Recoveries</div>
+        <div class="value">{{ summary.pendingRecoveries }}</div>
+      </mat-card>
+    </div>
+
+    <div class="loading" *ngIf="loading">Loading…</div>
+    <p *ngIf="!loading && !summary" class="empty">No summary available.</p>
+  </mat-card-content>
+</mat-card>

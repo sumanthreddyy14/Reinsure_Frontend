@@ -1,0 +1,34 @@
+<div class="page-bg">
+  <app-finance-dashboard></app-finance-dashboard>
+<mat-card *ngIf="recovery">
+  <mat-card-title>Recovery Details</mat-card-title>
+  <mat-card-content>
+    <p><strong>ID:</strong> {{ recovery.recoveryId }}</p>
+    <p><strong>Claim:</strong> {{ recovery.claimId }}</p>
+    <p><strong>Treaty:</strong> {{ recovery.treatyId }}</p>
+    <p><strong>Amount:</strong> {{ recovery.recoveryAmount | currency }}</p>
+    <p><strong>Date:</strong> {{ recovery.recoveryDate | date:'yyyy-MM-dd' }}</p>
+    <p><strong>Status:</strong>
+      <app-status-badge [status]="recovery.status"></app-status-badge>
+    </p>
+
+    <app-settlement-timeline [timeline]="[
+      { date: recovery.recoveryDate, label: 'Recovery Initiated', status: recovery.status }
+    ]"></app-settlement-timeline>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" [routerLink]="['/recoveries']">
+      Back to List
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+
+<mat-card *ngIf="!recovery">
+  <mat-card-title>Recovery not found</mat-card-title>
+  <mat-card-content>
+    <p>The requested recovery could not be found.</p>
+    <a mat-button routerLink="/recoveries">Back to List</a>
+  </mat-card-content>
+</mat-card>
+</div>

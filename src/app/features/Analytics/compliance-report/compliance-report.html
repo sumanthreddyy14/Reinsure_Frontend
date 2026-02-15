@@ -1,0 +1,148 @@
+
+<div class="page-bg">
+  <app-finance-dashboard></app-finance-dashboard>
+
+  <mat-card>
+    <mat-card-title>Compliance Report</mat-card-title>
+
+    <mat-card-subtitle class="subtitle-with-chips">
+      Summary:
+      <mat-chip-set aria-label="Compliance severity summary">
+        <mat-chip class="chip-low" color="primary">LOW {{ summary.LOW }}</mat-chip>
+        <mat-chip class="chip-med" color="accent">MEDIUM {{ summary.MEDIUM }}</mat-chip>
+        <mat-chip class="chip-high" color="warn">HIGH {{ summary.HIGH }}</mat-chip>
+        <mat-chip class="chip-total" color="primary" variant="outlined">TOTAL {{ summary.total }}</mat-chip>
+      </mat-chip-set>
+    </mat-card-subtitle>
+
+    <!-- KPI Charts -->
+    <div class="chart-row">
+      <!-- Treaty Utilization (Line) -->
+      <section class="chart-box">
+        <h3 class="chart-h3">Treaty Utilization</h3>
+        <div
+          #treatyUtilizationRef
+          class="chart-container"
+          role="img"
+          aria-label="Line chart showing Treaty Utilization percentage over time">
+        </div>
+      </section>
+
+      <!-- Loss Ratio (Gauge) -->
+      <section class="chart-box">
+        <h3 class="chart-h3">Loss Ratio</h3>
+        <div
+          #lossRatioGaugeRef
+          class="chart-container"
+          role="img"
+          aria-label="Gauge chart showing Loss Ratio percentage">
+        </div>
+      </section>
+    </div>
+
+    <!-- Date Filters -->
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>From Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerFrom"
+          [(ngModel)]="filters.from"
+          (dateChange)="refresh()" />
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>To Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerTo"
+          [(ngModel)]="filters.to"
+          (dateChange)="refresh()" />
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button mat-stroked-button color="primary" (click)="clearTable()">
+        <mat-icon>refresh</mat-icon>
+        Refresh
+      </button>
+      <button mat-raised-button color="accent" (click)="exportCSV()">
+        <mat-icon>download</mat-icon>
+        Export CSV
+      </button>
+    </div>
+
+    <!-- Loading / Error states -->
+    <div class="row" *ngIf="loading">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+
+    <mat-card *ngIf="errorMsg" class="error-card">
+      <mat-card-content>
+        {{ errorMsg }}
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Table -->
+    <table mat-table [dataSource]="issues" class="mat-elevation-z1" *ngIf="issues.length">
+      <!-- ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let i">{{ i.id }}</td>
+      </ng-container>
+
+      <!-- Entity Type -->
+      <ng-container matColumnDef="entityType">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let i">{{ i.entityType }}</td>
+      </ng-container>
+
+      <!-- Entity ID -->
+      <ng-container matColumnDef="entityId">
+        <th mat-header-cell *matHeaderCellDef>Entity</th>
+        <td mat-cell *matCellDef="let i">{{ i.entityId }}</td>
+      </ng-container>
+
+      <!-- Severity -->
+      <ng-container matColumnDef="severity">
+        <th mat-header-cell *matHeaderCellDef>Severity</th>
+        <td mat-cell *matCellDef="let i">
+          <mat-chip
+            selected
+            [color]="i.severity === 'HIGH' ? 'warn' : (i.severity === 'MEDIUM' ? 'accent' : '')">
+            {{ i.severity }}
+          </mat-chip>
+        </td>
+      </ng-container>
+
+      <!-- Detected At -->
+      <ng-container matColumnDef="detectedAt">
+        <th mat-header-cell *matHeaderCellDef>Detected</th>
+        <td mat-cell *matCellDef="let i">{{ i.detectedAt | date:'short' }}</td>
+      </ng-container>
+
+      <!-- Message -->
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef>Message</th>
+        <td mat-cell *matCellDef="let i">{{ i.message }}</td>
+      </ng-container>
+
+      <!-- Header & Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns; trackBy: trackById;">
+      </tr>
+    </table>
+
+    <!-- Empty state -->
+    <div *ngIf="!loading && !issues.length && !errorMsg" class="empty">
+      No compliance issues found for current filters.
+    </div>
+  </mat-card>
+</div>

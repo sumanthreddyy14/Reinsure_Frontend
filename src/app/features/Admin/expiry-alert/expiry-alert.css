@@ -1,0 +1,71 @@
+.alert-card {
+  max-width: 900px;              
+  margin: 16px auto;            
+  padding: 14px 16px;
+  background: #fff; 
+  border-radius: 12px;          
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15); /* same shadow depth */
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-left: 6px solid #ef4444; /* var(--warn) if you prefer variables */
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
+}
+
+.alert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* Title styled as alert header, aligned like the summary title */
+.alert-card ::ng-deep mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #ef4444; /* var(--warn) */
+  margin: 0 0 12px;
+}
+
+.alert-card ::ng-deep mat-card-title::before {
+  content: "⚠️";
+  font-size: 1.05rem;
+}
+
+/* Content list */
+.alert-card ::ng-deep mat-card-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+/* Each treaty as a chip-like row */
+.alert-card ::ng-deep mat-card-content li {
+  background: linear-gradient(0deg, #ffffff, #fbfbfb);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #1f2937;  /* readable dark text */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 150ms ease, box-shadow 150ms ease, background 200ms ease;
+}
+
+.alert-card ::ng-deep mat-card-content li:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  background: #fff;
+}
+
+/* Optional small badge style for date inside the li (if you split name/date later) */
+.alert-card ::ng-deep .date-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+}

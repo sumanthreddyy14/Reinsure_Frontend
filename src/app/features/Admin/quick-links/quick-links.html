@@ -1,0 +1,25 @@
+<nav class="navbar">
+
+  <div class="sidebar-brand">
+    <a routerLink="/admin/dashboard" class="brand-link">Admin Home</a>
+  </div>
+
+  <!-- Right side -->
+  <ul class="navbar-links">
+    <!-- <li><a routerLink="/admin/dashboard" routerLinkActive="active">Home</a></li> -->
+    <li><a routerLink="/treaties" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Treaty List</a>
+    </li>
+    <li><a routerLink="/treaties/new" routerLinkActive="active">Create Treaty</a></li>
+    <li><a routerLink="/renewals" routerLinkActive="active">Renewal Calendar</a></li>
+    <li><a routerLink="/cessions/new" routerLinkActive="active">Allocate Risk</a></li>
+    <li><a routerLink="/reinsurers" routerLinkActive="active">Reinsurer</a></li>
+    <li class="logout-item"><a (click)="onLogout()" class="logout-link">Logout</a></li>
+  </ul>
+
+  <!-- Left side -->
+  <div class="user-info" *ngIf="user">
+    <span><strong>User:</strong> {{ user.userId }}</span>
+    <span><strong>Role:</strong> {{ user.persona }}</span>
+    <span><strong>Last Login:</strong> {{ user.lastLogin }}</span>
+  </div>
+</nav>

@@ -1,0 +1,35 @@
+<div class="page-bg">
+  <app-quick-links></app-quick-links>
+  <!-- Show while loading -->
+  <mat-card *ngIf="loading">
+    <mat-card-content>
+      <p>Loading treaty...</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Show data -->
+  <mat-card *ngIf="!loading && treaty">
+    <mat-card-title>Treaty Details</mat-card-title>
+    <mat-card-content>
+      <p><strong>ID:</strong> {{ treaty.treatyId }}</p>
+      <p><strong>Reinsurer:</strong> {{ treaty.reinsurerName }}</p>
+      <p><strong>Type:</strong> {{ treaty.treatyType }}</p>
+      <p><strong>Coverage Limit:</strong> {{ treaty.coverageLimit | number }}</p>
+      <p><strong>Period:</strong> {{ treaty.startDate }} → {{ treaty.endDate }}</p>
+      <p><strong>Status:</strong> {{ treaty.status }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button color="primary" routerLink="/treaties">Back to List</a>
+      <a mat-button color="accent" [routerLink]="['/treaties', treaty.treatyId, 'edit']">Edit</a>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Show not-found only after loading -->
+  <mat-card *ngIf="!loading && !treaty">
+    <mat-card-title>Treaty not found</mat-card-title>
+    <mat-card-content>
+      <p>The requested treaty could not be found.</p>
+      <a mat-button routerLink="/treaties">Back to List</a>
+    </mat-card-content>
+  </mat-card>
+</div>

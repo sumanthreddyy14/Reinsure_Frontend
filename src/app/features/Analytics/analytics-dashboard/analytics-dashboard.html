@@ -1,0 +1,46 @@
+<div class="page-bg">
+<app-finance-dashboard></app-finance-dashboard>
+<mat-card>
+  <mat-card-title>Analytics KPIs</mat-card-title>
+
+  <mat-card-content *ngIf="kpi as k">
+    
+    <table class="kpi-table" aria-label="Analytics KPIs">
+      <tbody>
+        <tr>
+          <th scope="row">Active Treaties:</th>
+          <td class="num">{{ k.data.activeTreaties }}</td>
+
+          <th scope="row">Expired Treaties:</th>
+          <td class="num">{{ k.data.expiredTreaties }}</td>
+
+          <th scope="row">Total Ceded:</th>
+          <td class="num">{{ k.data.totalCededPremiums | number:'1.2-2' }}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Total Recoveries:</th>
+          <td class="num">{{ k.data.totalRecoveries | number:'1.2-2' }}</td>
+
+          <th scope="row">Outstanding:</th>
+          <td class="num">{{ k.data.outstandingRecoveries | number:'1.2-2' }}</td>
+
+          <th scope="row">Avg Loss Ratio:</th>
+          <td class="num">{{ k.data.averageLossRatio | percent:'1.2-2' }}</td>
+        </tr>
+
+        <tr>
+          <th scope="row">Avg Ceded %:</th>
+          <td class="num">{{ k.data.averageCededPercentage | percent:'1.2-2' }}</td>
+          <th aria-hidden="true"></th>
+          <td aria-hidden="true"></td>
+          <th aria-hidden="true"></th>
+          <td aria-hidden="true"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <small>Generated at: {{ k.generatedAt | date:'short' }}</small>
+  </mat-card-content>
+</mat-card>
+</div>

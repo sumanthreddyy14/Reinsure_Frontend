@@ -1,0 +1,88 @@
+/* Main card */
+mat-card {
+  margin: 20px auto;
+  max-width: 1000px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+mat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+mat-card-title {
+  padding-top: 10px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1976d2;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #1976d2;
+  margin-top: 20px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th.mat-header-cell {
+  background-color: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px;
+}
+
+td.mat-cell {
+  text-align: center;
+  padding: 12px;
+  font-size: 0.95rem;
+}
+
+tr.mat-row:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+tr.mat-row:hover {
+  background-color: #e3f2fd;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Treaties column styling */
+td.mat-cell span {
+  display: inline-block;
+  background: #bbdefb;
+  color: #0d47a1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin: 2px;
+  font-size: 0.85rem;
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  font-style: italic;
+  color: #757575;
+  margin-top: 20px;
+}

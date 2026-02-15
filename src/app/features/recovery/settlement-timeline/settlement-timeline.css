@@ -1,0 +1,75 @@
+mat-card {
+  margin: 20px;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+mat-card:hover {
+  transform: translateY(-4px);
+}
+
+mat-card-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1976d2;
+  margin-bottom: 12px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.timeline-item:hover {
+  background: #e8f0fe;
+  transform: scale(1.02);
+}
+
+.timeline-item mat-icon {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details .label {
+  font-weight: 500;
+  color: #333;
+}
+
+.details .date {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Status-based colors */
+.timeline-item.completed mat-icon {
+  color: #4caf50; /* Green */
+}
+
+.timeline-item.pending mat-icon {
+  color: #ff9800; /* Orange */
+}
+
+.timeline-item.inprogress mat-icon {
+  color: #2196f3; /* Blue */
+}
+.disputed mat-icon {
+  color: #d32f2f; /* red */
+}

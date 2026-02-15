@@ -1,0 +1,49 @@
+<div class="page-bg">
+  <app-quick-links></app-quick-links>
+  <!-- <app-finance-dashboard></app-finance-dashboard> -->
+  <mat-card>
+    <mat-card-title>Allocate Risk to Treaty</mat-card-title>
+    <mat-card-content>
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Treaty</mat-label>
+          <mat-select [(ngModel)]="selectedTreatyId">
+            <mat-option *ngFor="let t of treaties" [value]="t.treatyId">
+              {{ t.treatyId }} — {{ t.reinsurerName }} ({{ t.treatyType }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Policy</mat-label>
+          <mat-select [(ngModel)]="selectedPolicyId">
+            <mat-option *ngFor="let p of policies" [value]="p">{{ p }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ceded Percentage</mat-label>
+          <input matInput type="number" min="1" max="100" step="0.01" [(ngModel)]="cededPercentage"
+            placeholder="e.g., 40" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Commission Rate</mat-label>
+          <input matInput type="number" min="0" max="1" step="0.01" [(ngModel)]="commissionRate"
+            placeholder="e.g., 0.1" />
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="allocate()"
+        [disabled]="!selectedTreatyId || !selectedPolicyId || cededPercentage <= 0">
+        Allocate
+      </button>
+
+      <div class="result" *ngIf="lastResult">
+        <p><strong>Cession ID:</strong> {{ lastResult.cessionId }}</p>
+        <p><strong>Ceded Premium:</strong> {{ lastResult.cededPremium | number }}</p>
+        <p><strong>Commission:</strong> {{ lastResult.commission | number }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

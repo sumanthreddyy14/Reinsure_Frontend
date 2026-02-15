@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <div class="sidebar-brand">
+    <a routerLink="/dashboard" class="brand-link">Finance Home</a>
+  </div>
+  <ul class="navbar-links">
+     <!-- <li><a routerLink="/dashboard" routerLinkActive="active">Home</a></li> -->
+    <li><a routerLink="/report" routerLinkActive="active">Financial Reports</a></li>
+    <li><a routerLink="/recoveries" routerLinkActive="active">Recovery</a></li>
+    <li><a routerLink="/cessions" routerLinkActive="active">Risk Cessions</a></li>
+    <li><a routerLink="/analytics-dash" routerLinkActive="active">Analytics</a></li>
+     <li><a routerLink="/manage-dash" routerLinkActive="active">Manage</a></li>    
+     <li><a routerLink="/compliance-report" routerLinkActive="active">Complience Report</a></li>  
+      <li class="logout-item"><a (click)="onLogout()" class="logout-link">Logout</a></li>
+  </ul>
+  <div class="user-info" *ngIf="user">
+    <span><strong>User:</strong> {{ user.userId }}</span>
+    <span><strong>Role:</strong> {{ user.persona }}</span>
+    <span><strong>Last Login:</strong> {{ user.lastLogin }}</span>
+  </div>
+</nav>
+
+

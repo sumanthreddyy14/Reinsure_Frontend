@@ -1,0 +1,6 @@
+
+<button mat-stroked-button color="primary"
+        (click)="export()"
+        [disabled]="!report && (!rows || !rows.length) && !filters">
+  {{ generating ? 'Generating…' : 'Export CSV' }}
+</button>

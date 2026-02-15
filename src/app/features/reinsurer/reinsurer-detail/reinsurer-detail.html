@@ -1,0 +1,35 @@
+
+
+<div class="page-bg">
+  <!-- TEMP: comment QuickLinks until stable -->
+  <app-quick-links></app-quick-links>
+
+  <!-- Show while loading -->
+  <mat-card *ngIf="loading">
+    <mat-card-content>
+      <p>Loading reinsurer...</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Show details -->
+  <mat-card *ngIf="!loading && reinsurer">
+    <mat-card-title>Reinsurer Details</mat-card-title>
+    <mat-card-content>
+      <p><strong>ID:</strong> {{ reinsurer.reinsurerId }}</p>
+      <p><strong>Name:</strong> {{ reinsurer.name }}</p>
+      <p><strong>Contact Info:</strong> {{ reinsurer.contactInfo }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button color="primary" routerLink="/reinsurers">Back to List</a>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Show not found after loading -->
+  <mat-card *ngIf="!loading && !reinsurer">
+    <mat-card-title>Reinsurer not found</mat-card-title>
+    <mat-card-content>
+      <p>The requested reinsurer could not be found.</p>
+      <a mat-button routerLink="/reinsurers">Back to List</a>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,70 @@
+<div class="page-bg">
+  <app-finance-dashboard></app-finance-dashboard>
+  <mat-card>
+    <mat-card-title>Financial Reports</mat-card-title>
+    <mat-card-content>
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+      
+      <div class="filters search-container">
+        <div class="input-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Treaty ID</mat-label>
+            <input matInput [(ngModel)]="treatyId" placeholder="e.g., T001">
+          </mat-form-field>
+
+          <div class="or-divider">OR</div>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Reinsurer ID</mat-label>
+            <input matInput [(ngModel)]="reinsurerId" placeholder="e.g., R001">
+          </mat-form-field>
+        </div>
+
+        <div class="button-row">
+          <button mat-raised-button color="primary" (click)="generate()" [disabled]="generating">
+            Generate Full Report
+          </button>
+        </div>
+      </div>
+
+      <table mat-table [dataSource]="reports" *ngIf="reports.length">
+        <ng-container matColumnDef="reportId">
+          <th mat-header-cell *matHeaderCellDef>Report ID</th>
+          <td mat-cell *matCellDef="let r">{{ r.reportId }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="generatedDate">
+          <th mat-header-cell *matHeaderCellDef>Generated</th>
+          <td mat-cell *matCellDef="let r">{{ r.generatedDate | date:'medium' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cededPremiums">
+          <th mat-header-cell *matHeaderCellDef>Ceded Premiums</th>
+          <td mat-cell *matCellDef="let r">{{ r.metrics.cededPremiums | number:'1.2-2' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="recoveries">
+          <th mat-header-cell *matHeaderCellDef>Recoveries</th>
+          <td mat-cell *matCellDef="let r">{{ r.metrics.recoveries | number:'1.2-2' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="outstanding">
+          <th mat-header-cell *matHeaderCellDef>Outstanding</th>
+          <td mat-cell *matCellDef="let r">{{ r.metrics.outstandingBalance | number:'1.2-2' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let r">
+            <app-export-button [report]="r"></app-export-button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <p *ngIf="!reports.length" class="empty">No reports generated yet.</p>
+    </mat-card-content>
+  </mat-card>
+</div>

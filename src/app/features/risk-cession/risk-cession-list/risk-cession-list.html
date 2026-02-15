@@ -1,0 +1,49 @@
+<div class="page-bg">
+<!-- <app-quick-links></app-quick-links> -->
+<app-finance-dashboard></app-finance-dashboard>
+<mat-card>
+  <mat-card-title>Risk Cessions</mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+      <ng-container matColumnDef="cessionId">
+        <th mat-header-cell *matHeaderCellDef>Cession ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.cessionId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="treatyId">
+        <th mat-header-cell *matHeaderCellDef>Treaty ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.treatyId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="policyId">
+        <th mat-header-cell *matHeaderCellDef>Policy ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.policyId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="cededPercentage">
+        <th mat-header-cell *matHeaderCellDef>Ceded %</th>
+        <td mat-cell *matCellDef="let row">{{ row.cededPercentage | number:'1.0-2' }}%</td>
+      </ng-container>
+
+      <ng-container matColumnDef="cededPremium">
+        <th mat-header-cell *matHeaderCellDef>Ceded Premium</th>
+        <td mat-cell *matCellDef="let row">{{ row.cededPremium | number }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="commission">
+        <th mat-header-cell *matHeaderCellDef>Commission</th>
+        <td mat-cell *matCellDef="let row">{{ row.commission | number }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Created</th>
+        <td mat-cell *matCellDef="let row">{{ row.createdAt | date:'yyyy-MM-dd HH:mm' }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+
+</div>

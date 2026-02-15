@@ -1,0 +1,51 @@
+<mat-card>
+  <mat-card-title>Balance Table (Grouped by Reinsurer)</mat-card-title>
+  <mat-card-content>
+    <div *ngIf="rows$ | async as rowData; else loadingState">
+      
+      <table mat-table [dataSource]="rowData" class="mat-elevation-z8">
+        
+        <ng-container matColumnDef="label">
+          <th mat-header-cell *matHeaderCellDef> Reinsurer ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.label}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cededPremiums">
+          <th mat-header-cell *matHeaderCellDef> Total Ceded Premiums </th>
+          <td mat-cell *matCellDef="let element"> {{element.cededPremiums | number:'1.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recoveries">
+          <th mat-header-cell *matHeaderCellDef> Total Recoveries </th>
+          <td mat-cell *matCellDef="let element"> {{element.recoveries | number:'1.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="outstanding">
+          <th mat-header-cell *matHeaderCellDef> Total Outstanding </th>
+          <td mat-cell *matCellDef="let element"> {{element.outstandingBalance | number:'1.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="treaties">
+          <th mat-header-cell *matHeaderCellDef> Connected Treaties </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="treaty-chip-list">
+              {{ element.treaties ? element.treaties.join(', ') : 'None' }}
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <p *ngIf="rowData.length === 0" class="empty-msg">No data found in database.</p>
+    </div>
+
+    <ng-template #loadingState>
+      <div class="loading-box">
+        <p>Loading grouped reinsurer data...</p>
+      </div>
+    </ng-template>
+
+  </mat-card-content>
+</mat-card>

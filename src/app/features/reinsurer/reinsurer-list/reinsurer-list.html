@@ -1,0 +1,35 @@
+<div class="page-bg">
+  <app-quick-links></app-quick-links>
+<mat-card>
+  <mat-card-title>Reinsurers</mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+      <ng-container matColumnDef="reinsurerId">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.reinsurerId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="contactInfo">
+        <th mat-header-cell *matHeaderCellDef>Contact Info</th>
+        <td mat-cell *matCellDef="let row">{{ row.contactInfo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <!-- <a mat-button color="primary" [routerLink]="['/reinsurers', row.reinsurerId]">View</a> -->
+          <button mat-button color="primary" (click)="go(row.reinsurerId)">View</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+</div>

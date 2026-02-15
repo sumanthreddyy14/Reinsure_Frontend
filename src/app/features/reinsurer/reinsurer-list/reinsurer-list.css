@@ -1,0 +1,95 @@
+/* Card container */
+mat-card {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 900px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #ffffff, #f9f9f9);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.page-bg {
+  min-height: 100vh;
+  /* full viewport height */
+  width: 100%;
+  /* No padding to let header touch edges */
+  background: linear-gradient(180deg,
+      rgba(37, 99, 235, 0.22) 0%,
+      rgba(37, 99, 235, 0.12) 20%,
+      rgba(13, 19, 42, 0.85) 60%,
+      #0b1020 100%);
+}
+
+mat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* Title */
+mat-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #1976d2;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: 600;
+  color: #555;
+  background-color: #f0f0f0;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 12px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+tr:hover td {
+  background-color: #f9f9f9;
+}
+
+/* Action buttons */
+a[mat-button] {
+  font-weight: 600;
+  border-radius: 6px;
+  text-transform: capitalize;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+a[mat-button]:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  mat-card {
+    margin: 10px auto;
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  mat-card-content {
+    overflow-x: auto;
+    display: block;
+  }
+
+  table {
+    min-width: 600px;
+  }
+}

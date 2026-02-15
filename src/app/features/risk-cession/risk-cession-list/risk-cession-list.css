@@ -1,0 +1,85 @@
+/* Card styling */
+mat-card {
+  margin: 24px auto;
+  padding: 24px;
+  max-width: 1000px;
+  border-radius: 12px;
+  background: #ffffff;
+  /* Removed gradient to ensure opacity */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  /* Ensure z-index works if needed */
+  z-index: 10;
+}
+
+.page-bg {
+  min-height: 100vh;
+  /* full viewport height */
+  width: 100%;
+  background: linear-gradient(180deg,
+      rgba(63, 81, 181, 0.22) 0%,
+      rgba(63, 81, 181, 0.12) 20%,
+      rgba(13, 19, 42, 0.85) 60%,
+      #0b1020 100%);
+}
+
+mat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* Title */
+mat-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #3f51b5;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: 600;
+  color: #555;
+  background-color: #f0f0f0;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 12px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+tr:hover td {
+  background-color: #f9f9f9;
+}
+
+/* Interactive row highlight */
+tr:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+  transition: transform 0.2s ease;
+}
+
+/* Action buttons */
+a[mat-button] {
+  font-weight: 600;
+  border-radius: 6px;
+  text-transform: capitalize;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a[mat-button]:hover {
+  transform: translateY(-2px);
+}

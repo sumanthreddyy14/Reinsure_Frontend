@@ -1,0 +1,64 @@
+<app-finance-dashboard></app-finance-dashboard>
+<div class="page-bg">
+<mat-card>
+  <mat-card-title>Management Dashboard</mat-card-title>
+  <mat-card-subtitle>Explore treaty risk exposure and utilization</mat-card-subtitle>
+
+  <mat-card-content>
+    <!-- Treaty selector -->
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Select Treaty</mat-label>
+        <mat-select
+          [value]="selectedTreatyId"
+          (selectionChange)="onTreatyChange($event.value)"
+        >
+          <mat-option *ngFor="let t of treaties; trackBy: trackByTreaty" [value]="t.treatyId">
+            {{ t.treatyId }} — {{ t.reinsurerName }} ({{ t.status }})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Loading / Error states -->
+    <div class="row" *ngIf="loading">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+
+    <mat-card *ngIf="errorMsg" class="error-card">
+      <mat-card-content>
+        {{ errorMsg }}
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Exposure panel -->
+    <div class="grid" *ngIf="exposure as e">
+      <mat-card class="metric">
+        <mat-card-subtitle>Totals</mat-card-subtitle>
+        <div>Reinsurer: <strong>{{ getSelectedReinsurerName() }}</strong></div>
+        <div>Treaty Type: <strong>{{ e.data.treatyType }}</strong></div>
+        <div>Total Ceded Premiums: <strong>{{ e.data.totalCededPremiums | number:'1.2-2' }}</strong></div>
+        <div>Cession Count: <strong>{{ e.data.cessionCount }}</strong></div>
+        <div>Policy Count: <strong>{{ e.data.policyCount || 0 }}</strong></div>
+      </mat-card>
+
+      <mat-card class="metric">
+        <mat-card-subtitle>Ceded Percentages</mat-card-subtitle>
+        <div>Max Ceded %: <strong>{{ e.data.maxCededPercentage | percent:'1.2-2' }}</strong></div>
+        <div>Avg Ceded %: <strong>{{ e.data.averageCededPercentage | percent:'1.2-2' }}</strong></div>
+      </mat-card>
+
+      <mat-card class="meta">
+        <mat-card-subtitle>Meta</mat-card-subtitle>
+        <div>Generated At: <strong>{{ e.generatedAt | date:'short' }}</strong></div>
+        <div>Source: <span>{{ e.source || 'AnalyticsService' }}</span></div>
+      </mat-card>
+    </div>
+
+    <!-- Empty state -->
+    <div *ngIf="!loading && !exposure && !errorMsg" class="empty">
+      Select a treaty to view exposure.
+    </div>
+  </mat-card-content>
+</mat-card>
+</div>

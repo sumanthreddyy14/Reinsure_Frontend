@@ -1,0 +1,13 @@
+
+<app-quick-links></app-quick-links>
+
+<!-- Render as soon as startWith emits -->
+<div class="cards" *ngIf="vm$ | async as vm">
+  <app-dashboard-cards
+    [activeTreaties]="vm.active"
+    [pendingRecoveries]="vm.pending">
+  </app-dashboard-cards>
+
+  <!-- Show the section even if empty; inside, you can render an empty state -->
+  <app-expiry-alert [expiredTreaties]="vm.expired"></app-expiry-alert>
+</div>

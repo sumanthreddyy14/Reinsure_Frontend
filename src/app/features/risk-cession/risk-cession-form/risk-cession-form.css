@@ -1,0 +1,122 @@
+/* Card styling */
+mat-card {
+  margin: 20px auto;
+  padding: 28px;
+  max-width: 800px;
+  border-radius: 12px;
+  background: #ffffff;
+  /* Solid background to prevent overlap */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.page-bg {
+  min-height: 100vh;
+  /* full viewport height */
+  width: 100%;
+  /* No padding to let header touch edges */
+  background: linear-gradient(180deg,
+      rgba(37, 99, 235, 0.22) 0%,
+      rgba(37, 99, 235, 0.12) 20%,
+      rgba(13, 19, 42, 0.85) 60%,
+      #0b1020 100%);
+}
+
+mat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* Title */
+mat-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #1976d2;
+  text-align: center;
+  letter-spacing: 0.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Form grid layout */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-label {
+  font-weight: 600;
+  color: #444;
+}
+
+/* Allocate button */
+button[mat-raised-button] {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 24px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-transform: capitalize;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[mat-raised-button]:hover {
+  transform: translateY(-2px);
+}
+
+/* Result section */
+.result {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 8px;
+  background: #e3f2fd;
+  color: #0d47a1;
+  font-size: 15px;
+  line-height: 1.6;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.result p {
+  margin: 6px 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  mat-card {
+    margin: 10px;
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    /* Stack columns */
+  }
+
+  button[mat-raised-button] {
+    width: 100%;
+  }
+}
