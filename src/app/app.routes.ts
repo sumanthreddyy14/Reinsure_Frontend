@@ -269,6 +269,11 @@ export const routes: Routes = [
     loadComponent: () => import('./features/treaty/renewal-calendar/renewal-calendar').then(m => m.RenewalCalendar),
   },
   {
+    path: 'policies/new',
+    canActivate: [AdminGuard],
+    loadComponent: () => import('./features/policy-form/policy-form').then(m => m.PolicyForm),
+  },
+  {
     path: 'reinsurers',
     canActivate: [AdminGuard],
     loadComponent: () => import('./features/reinsurer/reinsurer-list/reinsurer-list').then(m => m.ReinsurerList),

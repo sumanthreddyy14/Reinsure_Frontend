@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Treaty } from '../../../models/treaty.model';
+import { Policy } from '../../../models/policy.model';
 import { RiskCessionService } from '../../../services/risk-cession.service';
 import { TreatyService } from '../../../services/treaty.service';
+import { PolicyService } from '../../../services/policy.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -32,22 +34,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RiskCession {
   treaties: Treaty[] = [];
-  policies = ['P1001', 'P1002', 'P1003']; // from service later
+  policies: Policy[] = [];
   selectedTreatyId = '';
   selectedPolicyId = '';
   cededPercentage = 0;
-  commissionRate = 0.1; // optional override
+  commissionRate = 0.1;
   lastResult?: { cededPremium: number; commission: number; cessionId: string };
 
-
-  
-constructor(
-  private cessionService: RiskCessionService,
-  private treatyService: TreatyService,
-  private snack: MatSnackBar
-) {
-  this.treatyService.list().subscribe(t => (this.treaties = t.filter(tt => tt.status === 'ACTIVE')));
-}
+  constructor(
+    private cessionService: RiskCessionService,
+    private treatyService: TreatyService,
+    private policyService: PolicyService,
+    private snack: MatSnackBar
+  ) {
+    this.treatyService.list().subscribe(t => (this.treaties = t.filter(tt => tt.status === 'ACTIVE')));
+    this.policyService.listPolicies().subscribe({
+      next: p => this.policies = p,
+      error: err => this.snack.open('Failed to load policies', 'Dismiss', { duration: 3000 })
+    });
+  }
 
 allocate(): void {
   if (!this.selectedTreatyId || !this.selectedPolicyId || this.cededPercentage <= 0) return;
