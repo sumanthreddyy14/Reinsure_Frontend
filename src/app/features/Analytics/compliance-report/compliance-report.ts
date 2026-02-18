@@ -7,7 +7,7 @@ import {
   ElementRef,
   ViewChild
 } from '@angular/core';
-import { ComplianceService, ComplianceRules } from '../../../services/compliance.service';
+import {  ComplianceRules, ComplianceApiService } from '../../../services/compliance.service';
 
 import type { ComplianceIssue, AnalyticsData } from '../../../models/analytics.model';
 import type { FinanceFilters } from '../../../models/finance.model';
@@ -77,8 +77,9 @@ export class ComplianceReport implements OnInit, AfterViewInit, OnDestroy {
   private lossRatioValue = 83.5; // %
   private lossRatioMax = 150;    // gauge max domain
 
-  constructor(private compliance: ComplianceService, @Inject(PLATFORM_ID) private platformId: Object) {}
+  // constructor(private compliance: ComplianceService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
+  constructor(private compliance: ComplianceApiService, @Inject(PLATFORM_ID) private platformId: Object) {}
   ngOnInit(): void {
     this.refresh();
   }
@@ -250,18 +251,22 @@ export class ComplianceReport implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
-
   exportCSV(): void {
-    if (isPlatformBrowser(this.platformId)) {
-    const blob = this.compliance.exportIssuesCSV(this.issues);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.download = 'compliance_issues.csv';
-    a.href = url;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-  }
+  // Use server CSV export with filters (no Blob in the client)
+  this.compliance.exportIssuesCSV(this.filters);
+}
+
+  // exportCSV(): void {
+  //   if (isPlatformBrowser(this.platformId)) {
+  //   const blob = this.compliance.exportIssuesCSV(this.issues);
+  //   const url = URL.createObjectURL(blob);
+  //   const a = document.createElement('a');
+  //   a.download = 'compliance_issues.csv';
+  //   a.href = url;
+  //   a.click();
+  //   URL.revokeObjectURL(url);
+  // }
+  // }
   trackById(_: number, i: ComplianceIssue) { return i.id; }
 }
-``
+

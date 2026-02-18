@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AnalyticsService } from '../../../services/analytics.service';
 import type {
   AnalyticsData,
@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MaterialModule } from "../../../models/material.module";
 import { FinanceDashboard } from '../../Financial-Report/finance-dashboard/finance-dashboard';
+import { finalize, forkJoin } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -41,7 +42,7 @@ export class AnalyticsDashboard implements OnInit {
     to: '2025-12-31'
   };
 
-  constructor(private analytics: AnalyticsService) {}
+  constructor(private analytics: AnalyticsService,private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.refresh();
@@ -59,6 +60,7 @@ export class AnalyticsDashboard implements OnInit {
       next: res => {
         this.summaries = res.data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: err => {
         console.error(err);
@@ -67,6 +69,7 @@ export class AnalyticsDashboard implements OnInit {
     });
   }
 
+ 
   trackByTreaty(_: number, s: TreatyPerformanceSummary) { return s.treatyId; }
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AnalyticsService } from '../../../services/analytics.service';
 import { TreatyService } from '../../../services/treaty.service';
 
@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MaterialModule } from '../../../models/material.module';
 import { FinanceDashboard } from '../../Financial-Report/finance-dashboard/finance-dashboard';
+import { finalize } from 'rxjs';
 
 @Component({
     standalone: true,
@@ -37,7 +38,8 @@ export class ManagementDashboard implements OnInit {
 
   constructor(
     private analytics: AnalyticsService,
-    private treatyService: TreatyService
+    private treatyService: TreatyService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +73,7 @@ export class ManagementDashboard implements OnInit {
       next: (res: AnalyticsData<RiskExposure>) => {
         this.exposure = res;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
