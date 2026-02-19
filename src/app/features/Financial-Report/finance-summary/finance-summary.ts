@@ -38,7 +38,6 @@ export class FinanceSummary implements OnInit, OnChanges {
         this.summary = metrics;
         this.loading = false;
         this.cdr.detectChanges();
-
       },
       error: (err) => {
         console.error('Summary fetch failed', err);

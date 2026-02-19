@@ -32,19 +32,22 @@ export class FinancialReportList implements OnInit {
   reports: FinancialReport[] = [];
   generating = false;
   errorMessage = '';
-
   // Input bindings
   treatyId?: string;
   reinsurerId?: string;
 
-  displayedColumns = ['reportId', 'generatedDate', 'cededPremiums', 'recoveries', 'outstanding', 'actions'];
+  displayedColumns = ['reportId', 'searchId', 'generatedDate', 'actions'];
 
   constructor(private financeService: FinanceService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // Subscribe to the reports stream so the table updates automatically
     this.financeService.listReports().subscribe({
-      next: (r) => (this.reports = r),
+      next: (r) => {
+        this.reports = r;
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      },
       error: (err) => console.error('Error syncing report list', err)
     });
   }
@@ -53,7 +56,6 @@ export class FinancialReportList implements OnInit {
   this.errorMessage = '';
   this.generating = true;
   this.cdr.detectChanges(); // Force UI to show "generating" state immediately
-
   const filters: FinanceFilters = {
     treatyId: this.treatyId?.trim(),
     reinsurerId: this.reinsurerId?.trim()
@@ -68,21 +70,21 @@ export class FinancialReportList implements OnInit {
   this.financeService.generateReport(filters).subscribe({
     next: (r) => {
       this.generating = false;
-
       const hasData = r.metrics.cededPremiums > 0 || 
                       r.metrics.recoveries > 0 ||
                       r.metrics.outstandingBalance > 0;
-      
       if (!hasData) {
         this.errorMessage = 'No records found for this ID.';
       }
-      this.cdr.detectChanges(); // 3. Force UI update so the table/error appears instantly
+      this.cdr.markForCheck();
+      this.cdr.detectChanges();
     },
     error: (err) => {
       this.generating = false;
       // Handle the [object Object] issue
       this.errorMessage = typeof err.error === 'string' ? err.error : 'Invalid input or Server Error.';
-      this.cdr.detectChanges(); // 4. Force error message to show without needing a click
+      this.cdr.markForCheck();
+      this.cdr.detectChanges();
     }
   });
 }

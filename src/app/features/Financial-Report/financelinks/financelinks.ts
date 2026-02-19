@@ -12,6 +12,4 @@ import { FinanceDashboard } from '../finance-dashboard/finance-dashboard';
   templateUrl: './financelinks.html',
   styleUrl: './financelinks.css',
 })
-export class Financelinks {
-
-}
+export class Financelinks {}

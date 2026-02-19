@@ -28,30 +28,36 @@ mat-card-title {
   gap: 20px;
 }
 
-/* Metric cards */
+/* Metric cards - Glassmorphism effect */
 .metric {
   text-align: center;
   padding: 20px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .metric:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .metric .label {
   font-size: 1rem;
   font-weight: 600;
-  color: #1565c0;
+  color: #1976d2;
   margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .metric .value {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #0d47a1;
 }

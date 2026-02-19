@@ -28,7 +28,6 @@ export class BalanceTable implements OnInit, OnChanges {
 
   rows$!: Observable<BalanceRow[]>; 
   
-  // Add 'treaties' to the end of this array
   displayedColumns = ['label', 'cededPremiums', 'recoveries', 'outstanding', 'treaties'];
 
   constructor(private financeService: FinanceService) {}

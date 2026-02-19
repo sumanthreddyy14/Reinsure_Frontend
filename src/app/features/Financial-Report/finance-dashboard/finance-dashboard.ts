@@ -18,10 +18,8 @@ export class FinanceDashboard {
 constructor(private router: Router,private auth: AuthService) {
    this.user = this.auth.getUser();
 }
- 
   onLogout() {
   this.auth.clearUser();
   this.router.navigate(['/login']);
   }
- 
 }

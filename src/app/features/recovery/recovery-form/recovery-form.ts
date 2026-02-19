@@ -113,6 +113,7 @@ ngOnInit(): void {
   const id = this.route.snapshot.paramMap.get('id');
   console.log('form id:', id);
   if (id) {
+    this.recoveryId = id;
     this.recoveryService.getById(id).subscribe({
       next: rec => {
         this.recoveryForm.patchValue({

@@ -1,6 +1,13 @@
 <div class="page-bg">
   <app-finance-dashboard></app-finance-dashboard>
-<mat-card *ngIf="recovery">
+
+<mat-card *ngIf="loading">
+  <mat-card-content>
+    <p>Loading recovery details...</p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="!loading && recovery">
   <mat-card-title>Recovery Details</mat-card-title>
   <mat-card-content>
     <p><strong>ID:</strong> {{ recovery.recoveryId }}</p>
@@ -24,7 +31,7 @@
 </mat-card>
 
 
-<mat-card *ngIf="!recovery">
+<mat-card *ngIf="!loading && !recovery">
   <mat-card-title>Recovery not found</mat-card-title>
   <mat-card-content>
     <p>The requested recovery could not be found.</p>
