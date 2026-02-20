@@ -9,7 +9,6 @@ mat-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-
 .page-bg {
   min-height: 100vh;
   /* full viewport height */
@@ -71,12 +70,10 @@ a[mat-button] {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-
 a[mat-button]:hover {
   transform: translateY(-2px);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   mat-card {
     margin: 10px auto;
